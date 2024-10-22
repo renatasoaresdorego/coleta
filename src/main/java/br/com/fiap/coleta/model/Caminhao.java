@@ -34,6 +34,11 @@ public class Caminhao {
     @Column(name = "st_servico")
     private Boolean statusServico;
 
+    @ManyToOne
+    @JoinColumn(name = "id_rota", referencedColumnName = "id_rota")
+    //@JoinColumn: Especifica a coluna de chave estrangeira id_rota na tabela T_REC_CAMINHAO, que referencia a coluna id_rota na tabela T_REC_ROTA
+    private Rota rota;
+
     public Long getIdCaminhao() {
         return idCaminhao;
     }
@@ -74,12 +79,21 @@ public class Caminhao {
         this.statusServico = statusServico;
     }
 
+    public Rota getRota() {
+        return rota;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Caminhao caminhao = (Caminhao) o;
-        return Objects.equals(idCaminhao, caminhao.idCaminhao) && Objects.equals(capacidade, caminhao.capacidade) && Objects.equals(localizacaoEmTempoReal, caminhao.localizacaoEmTempoReal) && Objects.equals(placa, caminhao.placa) && Objects.equals(statusServico, caminhao.statusServico);
+        return Objects.equals(idCaminhao, caminhao.idCaminhao) &&
+                Objects.equals(capacidade, caminhao.capacidade) &&
+                Objects.equals(localizacaoEmTempoReal, caminhao.localizacaoEmTempoReal) &&
+                Objects.equals(placa, caminhao.placa) &&
+                Objects.equals(statusServico, caminhao.statusServico) &&
+                Objects.equals(rota, caminhao.rota);
     }
 
     @Override
@@ -95,6 +109,7 @@ public class Caminhao {
                 ", localizacaoEmTempoReal='" + localizacaoEmTempoReal + '\'' +
                 ", placa='" + placa + '\'' +
                 ", statusServico=" + statusServico +
+                ", rota=" + rota +
                 '}';
     }
 }
