@@ -3,6 +3,8 @@ package br.com.fiap.coleta.service;
 import br.com.fiap.coleta.dto.RotaCadastroDto;
 import br.com.fiap.coleta.model.Rota;
 import br.com.fiap.coleta.repository.RotaRepository;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,4 +45,7 @@ public class RotaService {
     }
 
 
+    public Optional<Rota> findById(@NotNull(message = "O id da rota é obrigatório.") @Min(1) Long idRota) {
+        return repo.findById(idRota);
+    }
 }

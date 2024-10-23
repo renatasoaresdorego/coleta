@@ -30,6 +30,14 @@ public class Rota {
     @Column(name = "ds_final")
     private String fim;
 
+    public Rota() {
+    }
+
+    public Rota(Long idRota) {
+        this.idRota = idRota;
+    }
+
+
     public Long getIdRota() {
         return idRota;
     }

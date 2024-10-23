@@ -37,7 +37,7 @@ public class Caminhao {
     @ManyToOne
     @JoinColumn(name = "id_rota", referencedColumnName = "id_rota")
     //@JoinColumn: Especifica a coluna de chave estrangeira id_rota na tabela T_REC_CAMINHAO, que referencia a coluna id_rota na tabela T_REC_ROTA
-    private Rota rota;
+    private Rota idRota;
 
     public Long getIdCaminhao() {
         return idCaminhao;
@@ -79,8 +79,12 @@ public class Caminhao {
         this.statusServico = statusServico;
     }
 
-    public Rota getRota() {
-        return rota;
+    public Rota getIdRota() {
+        return idRota;
+    }
+
+    public void setIdRota(Rota idRota) {
+        this.idRota = idRota;
     }
 
     @Override
@@ -93,7 +97,7 @@ public class Caminhao {
                 Objects.equals(localizacaoEmTempoReal, caminhao.localizacaoEmTempoReal) &&
                 Objects.equals(placa, caminhao.placa) &&
                 Objects.equals(statusServico, caminhao.statusServico) &&
-                Objects.equals(rota, caminhao.rota);
+                Objects.equals(idRota, caminhao.idRota);
     }
 
     @Override
@@ -109,7 +113,11 @@ public class Caminhao {
                 ", localizacaoEmTempoReal='" + localizacaoEmTempoReal + '\'' +
                 ", placa='" + placa + '\'' +
                 ", statusServico=" + statusServico +
-                ", rota=" + rota +
+                ", rota=" + idRota +
                 '}';
+    }
+
+    public void setRota(Rota rota) {
+        this.idRota = rota;
     }
 }

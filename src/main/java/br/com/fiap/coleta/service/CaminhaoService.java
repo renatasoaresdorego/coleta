@@ -1,6 +1,5 @@
 package br.com.fiap.coleta.service;
 
-import br.com.fiap.coleta.dto.CaminhaoCadastroDto;
 import br.com.fiap.coleta.model.Caminhao;
 import br.com.fiap.coleta.repository.CaminhaoRepository;
 import org.springframework.beans.BeanUtils;
@@ -16,7 +15,7 @@ public class CaminhaoService {
     @Autowired
     private CaminhaoRepository caminhaoRepository;
 
-    public Caminhao gravar(CaminhaoCadastroDto caminhaoCadastroDto){
+    public Caminhao gravar(Caminhao caminhaoCadastroDto){
         Caminhao caminhao = new Caminhao();
         BeanUtils.copyProperties(caminhaoCadastroDto, caminhao);
         return caminhaoRepository.save(caminhao);
