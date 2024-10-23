@@ -22,36 +22,17 @@ public class CaminhaoController {
     private CaminhaoService caminhaoService;
     private RotaService rotaService;
 
-//    @PostMapping("/caminhao")
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public Caminhao gravar(@RequestBody @Valid CaminhaoCadastroDto caminhaoCadastroDto) {
-//        return caminhaoService.gravar(caminhaoCadastroDto);
-//    }
-
     @PostMapping("/caminhao")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Caminhao> cadastrarCaminhao(@Valid @RequestBody CaminhaoCadastroDto dto) {
-        // Busca a rota pelo ID
-        Rota rota = rotaService.findById(dto.idRota())
-                .orElseThrow(() -> new EntityNotFoundException("Rota não encontrada"));
-
-        // Cria e popula a entidade Caminhao
-        Caminhao caminhao = new Caminhao();
-        caminhao.setCapacidade(dto.capacidade());
-        caminhao.setLocalizacaoEmTempoReal(dto.localizacaoEmTempoReal());
-        caminhao.setPlaca(dto.placa());
-        caminhao.setStatusServico(dto.statusServico());
-        caminhao.setRota(rota); // Atribua a instância da rota aqui
-
-        // Salva o caminhão
-        Caminhao savedCaminhao = caminhaoService.gravar(caminhao); // Aqui, use o objeto caminhao
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedCaminhao);
+    public Caminhao gravar(@RequestBody @Valid CaminhaoCadastroDto caminhaoCadastroDto) {
+        return caminhaoService.gravar(caminhaoCadastroDto);
     }
+
 
     @PutMapping("/caminhao")
     @ResponseStatus(HttpStatus.OK)
-    public Caminhao atualizar(@RequestBody @Valid Caminhao caminhao){
-        return caminhaoService.atualizar(caminhao);
+    public Caminhao atualizar(@RequestBody @Valid CaminhaoCadastroDto CaminhaoCadastroDto){
+        return caminhaoService.atualizar(CaminhaoCadastroDto);
     }
 
     @GetMapping("/caminhao")

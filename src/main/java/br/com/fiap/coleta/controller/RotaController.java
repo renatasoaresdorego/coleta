@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -16,6 +17,7 @@ public class RotaController {
 
     @Autowired
     private RotaService rotaService;
+
 
     @PostMapping("/rota")
     @ResponseStatus(HttpStatus.CREATED)
@@ -33,6 +35,12 @@ public class RotaController {
     @ResponseStatus(HttpStatus.OK)
     public List<Rota> listarTodasAsRotas() {
         return rotaService.listarTodosAsRotas();
+    }
+
+    @GetMapping("/rota/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Optional<Rota> getRotaPorId(@PathVariable Long id){
+        return rotaService.findById(id);
     }
 
     @DeleteMapping("/rota/{id}")
