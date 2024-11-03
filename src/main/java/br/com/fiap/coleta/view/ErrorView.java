@@ -1,4 +1,4 @@
-package br.com.fiap.coleta.dto.view;
+package br.com.fiap.coleta.view;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

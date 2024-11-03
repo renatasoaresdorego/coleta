@@ -1,24 +1,21 @@
 package br.com.fiap.coleta.model;
 
 import jakarta.persistence.*;
+import lombok.*;
 
-import java.util.Objects;
-
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
+@ToString
 @Entity
 @Table(name = "T_REC_CAMINHAO")
 public class Caminhao {
 
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "SEQ_CAMINHAO"
-    )
-    @SequenceGenerator(
-            name = "SEQ_CAMINHAO",
-            sequenceName = "SEQ_CAMINHAO",
-            allocationSize = 1
-    )
-
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_CAMINHAO")
+    @SequenceGenerator(name = "SEQ_CAMINHAO", sequenceName = "SEQ_CAMINHAO", allocationSize = 1)
     @Column(name = "id_caminhao")
     private Long idCaminhao;
 
@@ -34,67 +31,7 @@ public class Caminhao {
     @Column(name = "st_servico")
     private Boolean statusServico;
 
-    public Long getIdCaminhao() {
-        return idCaminhao;
-    }
-
-    public void setIdCaminhao(Long id) {
-        this.idCaminhao = id;
-    }
-
-    public Long getCapacidade() {
-        return capacidade;
-    }
-
-    public void setCapacidade(Long capacidade) {
-        this.capacidade = capacidade;
-    }
-
-    public String getLocalizacaoEmTempoReal() {
-        return localizacaoEmTempoReal;
-    }
-
-    public void setLocalizacaoEmTempoReal(String localizacaoEmTempoReal) {
-        this.localizacaoEmTempoReal = localizacaoEmTempoReal;
-    }
-
-    public String getPlaca() {
-        return placa;
-    }
-
-    public void setPlaca(String placa) {
-        this.placa = placa;
-    }
-
-    public Boolean getStatusServico() {
-        return statusServico;
-    }
-
-    public void setStatusServico(Boolean statusServico) {
-        this.statusServico = statusServico;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Caminhao caminhao = (Caminhao) o;
-        return Objects.equals(idCaminhao, caminhao.idCaminhao) && Objects.equals(capacidade, caminhao.capacidade) && Objects.equals(localizacaoEmTempoReal, caminhao.localizacaoEmTempoReal) && Objects.equals(placa, caminhao.placa) && Objects.equals(statusServico, caminhao.statusServico);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(idCaminhao, capacidade, localizacaoEmTempoReal, placa, statusServico);
-    }
-
-    @Override
-    public String toString() {
-        return "Caminhao{" +
-                "id=" + idCaminhao +
-                ", capacidade=" + capacidade +
-                ", localizacaoEmTempoReal='" + localizacaoEmTempoReal + '\'' +
-                ", placa='" + placa + '\'' +
-                ", statusServico=" + statusServico +
-                '}';
-    }
+    @ManyToOne(cascade = {CascadeType.DETACH}, fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_rota")
+    private Rota rota;
 }

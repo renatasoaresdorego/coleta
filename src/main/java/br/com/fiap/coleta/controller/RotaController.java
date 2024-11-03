@@ -4,7 +4,6 @@ import br.com.fiap.coleta.dto.RotaCadastroDto;
 import br.com.fiap.coleta.model.Rota;
 import br.com.fiap.coleta.service.RotaService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +13,6 @@ import java.util.List;
 @RequestMapping("/api")
 public class RotaController {
 
-    @Autowired
     private RotaService rotaService;
 
     @PostMapping("/rota")
