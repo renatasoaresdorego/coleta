@@ -1,6 +1,6 @@
 package br.com.fiap.coleta.exception;
 
-import br.com.fiap.coleta.view.ErrorView;
+import br.com.fiap.coleta.dto.ErrorDto;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,8 +18,8 @@ public class RESTExceptionHandler {
 
     @ExceptionHandler(UsernameNotFoundException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorView handleUsernameNotFound(UsernameNotFoundException exception, HttpServletRequest request) {
-        return new ErrorView(
+    public ErrorDto handleUsernameNotFound(UsernameNotFoundException exception, HttpServletRequest request) {
+        return new ErrorDto(
                 LocalDateTime.now(),
                 HttpStatus.BAD_REQUEST.value(),
                 HttpStatus.BAD_REQUEST.name(),
@@ -30,8 +30,8 @@ public class RESTExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorView handleServerError(Exception exception, HttpServletRequest request) {
-        return new ErrorView(
+    public ErrorDto handleServerError(Exception exception, HttpServletRequest request) {
+        return new ErrorDto(
                 LocalDateTime.now(),
                 HttpStatus.BAD_REQUEST.value(),
                 HttpStatus.BAD_REQUEST.name(),
@@ -42,13 +42,13 @@ public class RESTExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorView handleValidationError(MethodArgumentNotValidException exception, HttpServletRequest request) {
+    public ErrorDto handleValidationError(MethodArgumentNotValidException exception, HttpServletRequest request) {
         Map<String, String> errorMessage = new HashMap<>();
         exception.getBindingResult().getFieldErrors()
                 .forEach(e -> errorMessage.put(
                         e.getField(),
                         e.getDefaultMessage()));
-        return new ErrorView(
+        return new ErrorDto(
                 LocalDateTime.now(),
                 HttpStatus.BAD_REQUEST.value(),
                 HttpStatus.BAD_REQUEST.name(),

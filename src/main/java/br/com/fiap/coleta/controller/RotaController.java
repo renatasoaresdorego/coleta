@@ -21,7 +21,7 @@ public class RotaController {
         return rotaService.gravar(rotaCadastroDto);
     }
 
-    @PutMapping("rota")
+    @PutMapping("/rota")
     @ResponseStatus(HttpStatus.OK)
     public Rota atualizar(@RequestBody @Valid Rota rota) {
         return rotaService.atualizar(rota);

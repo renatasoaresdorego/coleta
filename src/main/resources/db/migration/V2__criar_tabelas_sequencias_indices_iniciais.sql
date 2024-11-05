@@ -80,10 +80,11 @@ CREATE TABLE t_rec_rota_caminhoes
 
 CREATE TABLE t_rec_usuario
 (
-    id_usuario NUMBER(38, 0) NOT NULL,
-    tx_cpf     VARCHAR2(255),
-    tx_senha   VARCHAR2(255),
-    ds_role    VARCHAR2(255),
+    id_usuario         NUMBER(38, 0) NOT NULL,
+    tx_cpf             VARCHAR2(255),
+    tx_senha           VARCHAR2(255),
+    morador_id_morador NUMBER(38, 0),
+    ds_role            VARCHAR2(255),
     CONSTRAINT pk_t_rec_usuario PRIMARY KEY (id_usuario)
 );
 
@@ -106,6 +107,9 @@ ALTER TABLE t_rec_agenda
 
 ALTER TABLE t_rec_caminhao
     ADD CONSTRAINT FK_T_REC_CAMINHAO_ON_ID_ROTA FOREIGN KEY (id_rota) REFERENCES t_rec_rota (id_rota);
+
+ALTER TABLE t_rec_usuario
+    ADD CONSTRAINT FK_T_REC_USUARIO_ON_MORADOR_ID_MORADOR FOREIGN KEY (morador_id_morador) REFERENCES t_rec_morador (id_morador);
 
 ALTER TABLE ponto_de_coleta_agendamentos_de_coleta
     ADD CONSTRAINT fk_pondecolagedecol_on_agenda FOREIGN KEY (agendamentos_de_coleta_id_agenda) REFERENCES t_rec_agenda (id_agenda);

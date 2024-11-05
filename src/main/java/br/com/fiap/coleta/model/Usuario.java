@@ -31,6 +31,9 @@ public class Usuario implements UserDetails {
     @Column(name = "tx_senha")
     private String senha;
 
+    @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true)
+    private Morador morador;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "ds_role")
     private Role role;

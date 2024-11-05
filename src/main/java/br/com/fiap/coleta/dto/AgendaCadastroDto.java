@@ -10,10 +10,8 @@ public record AgendaCadastroDto(
         @NotBlank (message = "A rota é obrigatória.")
         Long idRota,
 
-//        @NotBlank (message = "O ponto é obrigatório.")
-//        Long idPonto,
-
         @NotBlank (message = "A data da próxima coleta é obrgatória.")
         LocalDate dataProximaColeta
-) {
+){
+
 }

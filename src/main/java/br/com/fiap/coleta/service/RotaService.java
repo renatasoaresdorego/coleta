@@ -24,7 +24,6 @@ public class RotaService {
 
     public Rota atualizar(Rota rota) {
         Optional<Rota> rotaOptional = repo.findById(rota.getIdRota());
-
         if(rotaOptional.isPresent()){
             return repo.save(rota);
         } else throw new RuntimeException("Rota não encontrada.");
@@ -41,6 +40,5 @@ public class RotaService {
             repo.delete(rotaOptional.get());
         } else throw new RuntimeException("Rota não encontrada.");
     }
-
 
 }
