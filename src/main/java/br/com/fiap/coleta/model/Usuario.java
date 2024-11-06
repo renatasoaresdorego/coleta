@@ -28,11 +28,17 @@ public class Usuario implements UserDetails {
     @Column(name = "tx_cpf")
     private String cpf;
 
+    @Column(name = "nm_morador")
+    private String nome;
+
+    @Column(name = "tx_telefone")
+    private String telefone;
+
+    @Column(name = "tx_email")
+    private String email;
+
     @Column(name = "tx_senha")
     private String senha;
-
-    @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true)
-    private Morador morador;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "ds_role")

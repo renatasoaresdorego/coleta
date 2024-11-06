@@ -2,7 +2,7 @@ package br.com.fiap.coleta.model;
 
 public enum Role {
     ADMIN("admin"),
-    USUARIO("usuario");
+    USER("usuario");
 
 
     private String role;

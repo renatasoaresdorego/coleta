@@ -17,21 +17,11 @@ public class UsuarioService {
     private UsuarioRepository usuarioRepository;
 
     public UsuarioExibicaoDto cadastrarUsuario(UsuarioCadastroDto usuarioCadastroDto) {
-        validarCpf(usuarioCadastroDto.cpf());
         Usuario usuario = new Usuario();
         BeanUtils.copyProperties(usuarioCadastroDto, usuario);
         usuario.setSenha(criptografarSenha(usuarioCadastroDto.senha()));
         usuarioRepository.save(usuario);
         return new UsuarioExibicaoDto(usuario.getCpf());
-    }
-
-    public Boolean validarCpf(String cpf) {
-        try {
-            return usuarioRepository.findByCpf(cpf) == null;
-        } catch(AlreadyInUseException ex) {
-            System.err.println("O cpf possui morador associado. Tente recuperar a conta.");
-            return false;
-        }
     }
 
     public String criptografarSenha(String senha) {

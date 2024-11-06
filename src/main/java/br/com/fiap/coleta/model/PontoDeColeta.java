@@ -12,11 +12,12 @@ import java.util.List;
 @EqualsAndHashCode
 @ToString
 @Entity
+@Table(name = "T_REC_PONTO")
 public class PontoDeColeta {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_COLETA")
-    @SequenceGenerator(name = "SEQ_COLETA", sequenceName = "SEQ_COLETA", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_PONTO")
+    @SequenceGenerator(name = "SEQ_PONTO", sequenceName = "SEQ_PONTO", allocationSize = 1)
     @Column(name = "id_ponto_coleta")
     private Long idPontoDeColeta;
 

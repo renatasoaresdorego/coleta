@@ -1,7 +1,10 @@
 package br.com.fiap.coleta.controller;
 
+import br.com.fiap.coleta.dto.LoginDto;
 import br.com.fiap.coleta.dto.UsuarioCadastroDto;
 import br.com.fiap.coleta.dto.UsuarioExibicaoDto;
+import br.com.fiap.coleta.model.Usuario;
+import br.com.fiap.coleta.service.TokenService;
 import br.com.fiap.coleta.service.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,18 +24,23 @@ public class AuthController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
+
     @Autowired
     private UsuarioService usuarioService;
 
+    @Autowired
+    private TokenService tokenService;
+
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody @Valid UsuarioCadastroDto usuarioCadastroDto) {
+    public ResponseEntity login(@RequestBody @Valid LoginDto loginDto) {
         UsernamePasswordAuthenticationToken usernamePasswordAuthentication =
                 new UsernamePasswordAuthenticationToken(
-                        usuarioCadastroDto.cpf(),
-                        usuarioCadastroDto.senha()
+                        loginDto.cpf(),
+                        loginDto.senha()
                 );
         Authentication auth = authenticationManager.authenticate(usernamePasswordAuthentication);
-        return ResponseEntity.ok().build();
+        String token = tokenService.gerarToken((Usuario) auth.getPrincipal());
+        return ResponseEntity.ok(token);
     }
 
     @PostMapping("/cadastro")
