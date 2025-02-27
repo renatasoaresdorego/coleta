@@ -7,8 +7,12 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum Residuo {
     ORGANICO("Orgânico"),
-    COMUN("Comun"),
-    RECICLAVEL("Reciclável");
+    PAPEL("Papel"),
+    VIDRO("Vidro"),
+    METAL("Metal"),
+    PLASTICO("Plástico"),
+    COMUM("Comum"),
+    INFECTANTE("Infectante");
 
     private final String residuo;
 
