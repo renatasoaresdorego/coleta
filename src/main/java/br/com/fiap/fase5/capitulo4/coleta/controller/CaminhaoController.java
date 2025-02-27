@@ -16,7 +16,7 @@ public class CaminhaoController {
     @Autowired
     private CaminhaoService service;
 
-    @GetMapping("caminhoes/{/id}")
+    @GetMapping("caminhoes/{id}")
     @ResponseStatus(HttpStatus.OK)
     public CaminhaoDto buscarCaminhao(@PathVariable Long id) {
         return service.buscar(id);
