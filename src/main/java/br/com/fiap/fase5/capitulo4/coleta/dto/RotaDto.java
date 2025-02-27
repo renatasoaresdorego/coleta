@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 
 public record RotaDto(
 
-        Long id,
+        String id,
 
         @NotBlank(message = "O nome da rota é obrigatório.")
         String nome,

@@ -5,7 +5,7 @@ import jakarta.validation.constraints.*;
 
 public record UsuarioCadastroDto(
 
-        Long usuarioId,
+        String usuarioId,
 
         @NotBlank(message = "O campo 'cpf' é obrigatório")
         @Pattern( regexp = "^(\\d{3}\\.\\d{3}\\.\\d{3}\\-\\d{2}|\\d{11})$", message = "CPF inválido" )

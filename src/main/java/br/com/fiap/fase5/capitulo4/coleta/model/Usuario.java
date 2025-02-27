@@ -19,7 +19,7 @@ import java.util.List;
 public class Usuario implements UserDetails {
 
     @Id
-    private Long id;
+    private String id;
 
     @Indexed(unique = true)
     private String cpf;
@@ -33,7 +33,6 @@ public class Usuario implements UserDetails {
 
     private String senha;
 
-    @DBRef
     private Role role;
 
     @Override

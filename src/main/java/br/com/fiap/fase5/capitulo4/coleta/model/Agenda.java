@@ -13,7 +13,7 @@ import java.time.LocalDate;
 public class Agenda {
 
     @Id
-    private Long id;
+    private String id;
 
     private LocalDate dataProximaColeta;
 

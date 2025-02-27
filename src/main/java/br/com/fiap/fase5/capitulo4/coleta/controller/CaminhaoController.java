@@ -18,7 +18,7 @@ public class CaminhaoController {
 
     @GetMapping("caminhoes/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public CaminhaoDto buscarCaminhao(@PathVariable Long id) {
+    public CaminhaoDto buscarCaminhao(@PathVariable String id) {
         return service.buscar(id);
     }
 
@@ -36,7 +36,7 @@ public class CaminhaoController {
 
     @DeleteMapping("caminhoes/excluir-caminhao/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void excluirCaminhao(@PathVariable Long id) {
+    public void excluirCaminhao(@PathVariable String id) {
         service.excluir(id);
     }
 

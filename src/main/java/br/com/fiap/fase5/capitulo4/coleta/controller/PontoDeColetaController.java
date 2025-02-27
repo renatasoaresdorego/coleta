@@ -30,7 +30,7 @@ public class PontoDeColetaController {
 
     @DeleteMapping("/pontos/excluir/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void excluirPontoDeColeta(@PathVariable Long id) {
+    public void excluirPontoDeColeta(@PathVariable String id) {
         service.excluir(id);
     }
 }

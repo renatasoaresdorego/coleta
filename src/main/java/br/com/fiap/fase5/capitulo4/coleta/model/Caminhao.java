@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Caminhao {
 
     @Id
-    private Long id;
+    private String id;
 
     private Long capacidade;
 

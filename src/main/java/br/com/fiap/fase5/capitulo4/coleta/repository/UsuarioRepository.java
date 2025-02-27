@@ -5,8 +5,11 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface UsuarioRepository extends MongoRepository<Usuario, Long> {
+import java.util.Optional;
 
-    UserDetails findByCpf(String cpf);
+@Repository
+public interface UsuarioRepository extends MongoRepository<Usuario, String> {
+
+    UserDetails findUsuarioByCpf(String cpf);
+    Optional<Usuario> findByCpf(String cpf);
 }

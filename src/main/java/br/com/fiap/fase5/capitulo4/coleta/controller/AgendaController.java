@@ -36,7 +36,7 @@ public class AgendaController {
 
     @PutMapping("agenda/suspender-coleta")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void suspenderColeta(@Valid @RequestBody Long id) {
+    public void suspenderColeta(@Valid @RequestBody String id) {
         service.suspenderColeta(id);
     }
 

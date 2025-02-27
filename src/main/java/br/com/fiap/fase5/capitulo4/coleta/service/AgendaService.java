@@ -28,7 +28,7 @@ public class AgendaService {
         repository.save(agenda);
     }
 
-    public void suspenderColeta(Long id) {
+    public void suspenderColeta(String id) {
         Agenda agenda = buscar(id);
         agenda.setDataProximaColeta(LocalDate.EPOCH);
         repository.save(agenda);
@@ -41,7 +41,7 @@ public class AgendaService {
         return agendaDtos;
     }
 
-    public Agenda buscar(Long id) {
+    public Agenda buscar(String id) {
         return repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Agenda não encontrada. Indisponível."));
     }

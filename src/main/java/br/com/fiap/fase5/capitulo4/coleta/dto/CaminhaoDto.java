@@ -4,10 +4,10 @@ import jakarta.validation.constraints.NotBlank;
 
 public record CaminhaoDto(
 
-        Long idCaminhao,
+        String idCaminhao,
 
         @NotBlank(message = "O id da rota é obrigatório.")
-        Long idRota,
+        String idRota,
 
         @NotBlank(message = "A capacidade é obrigatória.")
         Long capacidade,

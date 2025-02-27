@@ -36,7 +36,7 @@ public class VerificarToken extends OncePerRequestFilter {
         } else {
             token = verificarTokenGerado.replace("Bearer", "").trim();
             String cpfValido = tokenService.validarToken(token);
-            UserDetails usuario = usuarioRepository.findByCpf(cpfValido);
+            UserDetails usuario = usuarioRepository.findUsuarioByCpf(cpfValido);
             UsernamePasswordAuthenticationToken tokenAuth =
                     new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(tokenAuth);

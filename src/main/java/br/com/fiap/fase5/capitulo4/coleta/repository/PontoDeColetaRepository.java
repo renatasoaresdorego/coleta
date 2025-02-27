@@ -5,5 +5,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PontoDeColetaRepository extends MongoRepository<PontoDeColeta, Long> {
+public interface PontoDeColetaRepository extends MongoRepository<PontoDeColeta, String> {
 }

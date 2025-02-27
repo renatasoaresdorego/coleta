@@ -29,7 +29,7 @@ public class PontoDeColetaService {
         return pontosDeColetaDto;
     }
 
-    public void excluir(Long id) {
+    public void excluir(String id) {
         repository.deleteById(id);
     }
 

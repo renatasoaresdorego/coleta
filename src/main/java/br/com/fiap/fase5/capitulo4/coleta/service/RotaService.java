@@ -30,11 +30,11 @@ public class RotaService {
         return repository.findAll();
     }
 
-    public void excluir(Long id){
+    public void excluir(String id){
         repository.delete(buscar(id));
     }
 
-    public Rota buscar(Long id) {
+    public Rota buscar(String id) {
         return repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("A rota informada não está cadastrada."));
     }

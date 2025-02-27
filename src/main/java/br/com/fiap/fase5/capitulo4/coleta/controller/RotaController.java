@@ -35,7 +35,7 @@ public class RotaController {
 
     @DeleteMapping("/rota/excluir-rota/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void excluir(@PathVariable Long id) {
+    public void excluir(@PathVariable String id) {
         rotaService.excluir(id);
     }
 

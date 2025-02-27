@@ -12,7 +12,7 @@ import java.util.List;
 public class PontoDeColeta {
 
     @Id
-    private Long id;
+    private String id;
 
     private String endereco;
 

@@ -8,7 +8,7 @@ import java.util.List;
 
 public record PontoDeColetaDto(
 
-        Long id,
+        String id,
 
         @NotBlank(message = "É preciso informar o endereço do ponto de coleta")
         String endereco,

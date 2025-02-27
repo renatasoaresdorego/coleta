@@ -5,10 +5,10 @@ import jakarta.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
 public record AgendaDto(
-        Long idAgenda,
+        String idAgenda,
 
         @NotBlank (message = "A rota é obrigatória.")
-        Long idRota,
+        String idRota,
 
         @NotBlank (message = "A data da próxima coleta é obrigatória.")
         LocalDate dataProximaColeta

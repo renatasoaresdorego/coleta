@@ -38,11 +38,11 @@ public class CaminhaoService {
         return caminhoesDto;
     }
 
-    public void excluir(Long id) {
+    public void excluir(String id) {
         repository.deleteById(id);
     }
 
-    public CaminhaoDto buscar(Long id) {
+    public CaminhaoDto buscar(String id) {
         Caminhao caminhao =  repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Caminhão não encontrado"));
         return caminhaoMapper.caminhaoToCaminhaoDto(caminhao);
