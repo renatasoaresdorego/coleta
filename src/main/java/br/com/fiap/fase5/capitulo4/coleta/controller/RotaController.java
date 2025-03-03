@@ -15,28 +15,28 @@ import java.util.List;
 public class RotaController {
 
     @Autowired
-    private RotaService service;
+    private RotaService rotaService;
 
-    @PostMapping("/rota/gravar-rota")
-    public ResponseEntity<Void> gravarRota(@RequestBody @Valid RotaDto dto) {
-        service.gravar(dto);
+    @PostMapping("/rotas/gravar")
+    public ResponseEntity<Void> gravar(@RequestBody @Valid RotaDto dto) {
+        rotaService.gravar(dto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping("/rota/lista-de-rotas")
-    public ResponseEntity<List<RotaDto>> listarRotas() {
-        return new ResponseEntity<>(service.listar(), HttpStatus.OK);
+    @GetMapping("/rotas/listar")
+    public ResponseEntity<List<RotaDto>> listar() {
+        return new ResponseEntity<>(rotaService.listar(), HttpStatus.OK);
     }
 
-    @PutMapping("/rota/atualizar-rota")
-    public ResponseEntity<Void> atualizarRota(@RequestBody @Valid RotaDto dto) {
-        service.atualizar(dto);
+    @PutMapping("/rotas/atualizar")
+    public ResponseEntity<Void> atualizar(@RequestBody @Valid RotaDto dto) {
+        rotaService.atualizar(dto);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @DeleteMapping("/rota/excluir-rota/{id}")
+    @DeleteMapping("/rotas/excluir/{id}")
     public ResponseEntity<Void> excluir(@PathVariable String id) {
-        service.excluir(id);
+        rotaService.excluir(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

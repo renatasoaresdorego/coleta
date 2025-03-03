@@ -20,7 +20,6 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-@Slf4j
 @RestControllerAdvice
 public class RESTExceptionHandler {
 
@@ -40,12 +39,11 @@ public class RESTExceptionHandler {
     @ResponseStatus(HttpStatus.CONFLICT)
     public ErrorDto handleDataIntegrityViolationError(DataIntegrityViolationException exception,
             HttpServletRequest request) {
-        log.info(exception.getMessage());
         return new ErrorDto(
                 LocalDateTime.now(),
                 HttpStatus.CONFLICT.value(),
                 HttpStatus.CONFLICT.name(),
-                "Erro ao cadastrar. CPF ou email em uso.",
+                exception.getMessage(),
                 request.getServletPath()
         );
     }
@@ -166,4 +164,5 @@ public class RESTExceptionHandler {
                 request.getServletPath()
         );
     }
+
 }

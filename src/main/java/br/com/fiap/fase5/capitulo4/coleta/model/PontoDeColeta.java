@@ -4,6 +4,8 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.math.BigDecimal;
+
 @Data
 @Document(collection = "pontosDeColeta")
 public class PontoDeColeta {
@@ -13,10 +15,10 @@ public class PontoDeColeta {
 
     private String endereco;
 
-    private Double capacidadeMaxima;
+    private BigDecimal capacidadeMaxima;
 
-    private Double capacidadeAtual;
+    private BigDecimal capacidadeAtual;
 
-    private Residuo residuo;
+    private String residuo;
 
 }

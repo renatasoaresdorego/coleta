@@ -15,6 +15,18 @@ public enum Residuo {
     INFECTANTE("Infectante"),
     ELETRONICO("Eletrônico");
 
-    private final String residuo;
+    private String residuo;
 
+    public static Residuo fromString(String residuoString) {
+        try {
+            for(Residuo residuo: Residuo.values()) {
+                if(residuo.getResiduo().equals(residuoString)) {
+                    return residuo;
+                }
+            }
+        } catch(IllegalArgumentException e) {
+            throw new RuntimeException("Tipo de resíduo inválido.");
+        }
+        return null;
+    }
 }
