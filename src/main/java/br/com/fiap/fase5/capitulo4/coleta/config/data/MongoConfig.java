@@ -1,4 +1,4 @@
-package br.com.fiap.fase5.capitulo4.coleta.config;
+package br.com.fiap.fase5.capitulo4.coleta.config.data;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;

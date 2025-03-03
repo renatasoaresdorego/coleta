@@ -47,7 +47,6 @@ public class AgendaService {
     }
 
     public Agenda mapear(AgendaDto dto) {
-        buscar(dto.idAgenda());
         Agenda agenda = new Agenda();
         BeanUtils.copyProperties(dto, agenda);
         return agenda;

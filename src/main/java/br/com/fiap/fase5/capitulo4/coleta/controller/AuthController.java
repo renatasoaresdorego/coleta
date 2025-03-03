@@ -4,8 +4,8 @@ import br.com.fiap.fase5.capitulo4.coleta.dto.LoginDto;
 import br.com.fiap.fase5.capitulo4.coleta.dto.UsuarioCadastroDto;
 import br.com.fiap.fase5.capitulo4.coleta.dto.UsuarioExibicaoDto;
 import br.com.fiap.fase5.capitulo4.coleta.model.Usuario;
-import br.com.fiap.fase5.capitulo4.coleta.service.auth.TokenService;
 import br.com.fiap.fase5.capitulo4.coleta.service.UsuarioService;
+import br.com.fiap.fase5.capitulo4.coleta.service.auth.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,33 +19,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v2/auth")
+@RequestMapping("/auth")
 public class AuthController {
+
+    @Autowired
+    private UsuarioService usuarioService;
 
     @Autowired
     private TokenService tokenService;
 
     @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
-    private UsuarioService usuarioService;
+    private AuthenticationManager authManager;
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody @Valid LoginDto loginDto) {
-        UsernamePasswordAuthenticationToken usernamePasswordAuthentication =
-                new UsernamePasswordAuthenticationToken(
-                        loginDto.cpf(),
-                        loginDto.senha()
-                );
-        Authentication auth = authenticationManager.authenticate(usernamePasswordAuthentication);
+    public ResponseEntity login(@RequestBody @Valid LoginDto dto) {
+        UsernamePasswordAuthenticationToken usernamePassword
+                = new UsernamePasswordAuthenticationToken(dto.cpf(), dto.senha());
+
+        Authentication auth = authManager.authenticate(usernamePassword);
+
         String token = tokenService.gerarToken((Usuario) auth.getPrincipal());
+
         return ResponseEntity.ok(token);
     }
 
     @PostMapping("/cadastro")
-    public ResponseEntity cadastrar(@RequestBody @Valid UsuarioCadastroDto usuarioCadastroDto) {
-        UsuarioExibicaoDto usuarioSalvo = usuarioService.cadastrar(usuarioCadastroDto);
-        return new ResponseEntity(usuarioSalvo, HttpStatus.CREATED);
+    public ResponseEntity cadastrar(@RequestBody @Valid UsuarioCadastroDto dto) {
+        return new ResponseEntity(usuarioService.cadastrar(dto), HttpStatus.CREATED);
     }
+
 }

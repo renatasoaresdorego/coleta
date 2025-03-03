@@ -1,10 +1,7 @@
 package br.com.fiap.fase5.capitulo4.coleta.dto;
 
-import br.com.fiap.fase5.capitulo4.coleta.model.Agenda;
 import br.com.fiap.fase5.capitulo4.coleta.model.Residuo;
 import jakarta.validation.constraints.NotBlank;
-
-import java.util.List;
 
 public record PontoDeColetaDto(
 
@@ -19,8 +16,7 @@ public record PontoDeColetaDto(
         Double capacidadeAtual,
 
         @NotBlank(message = "Escolha o tipo de resíduo coletado.")
-        Residuo residuo,
+        Residuo residuo
 
-        List<Agenda> agendamentos
 ) {
 }

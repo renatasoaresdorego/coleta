@@ -18,7 +18,7 @@ public class CaminhaoService {
     private CaminhaoRepository repository;
 
     @Autowired
-    private CaminhaoMapper caminhaoMapper;
+    private CaminhaoMapper mapper;
 
     public void cadastrar(CaminhaoDto dto) {
         Caminhao caminhao = new Caminhao();
@@ -45,7 +45,7 @@ public class CaminhaoService {
     public CaminhaoDto buscar(String id) {
         Caminhao caminhao =  repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Caminhão não encontrado"));
-        return caminhaoMapper.caminhaoToCaminhaoDto(caminhao);
+        return mapper.caminhaoToCaminhaoDto(caminhao);
     }
 
 }

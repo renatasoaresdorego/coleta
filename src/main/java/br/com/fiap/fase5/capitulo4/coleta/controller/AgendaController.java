@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v2/coleta")
+@RequestMapping("/api/v2/coleta")
 public class AgendaController {
 
     @Autowired

@@ -4,6 +4,7 @@ import br.com.fiap.fase5.capitulo4.coleta.dto.ErrorDto;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.ValidationException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
@@ -19,6 +20,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 @RestControllerAdvice
 public class RESTExceptionHandler {
 
@@ -35,13 +37,15 @@ public class RESTExceptionHandler {
     }
     
     @ExceptionHandler(DataIntegrityViolationException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorDto handleDataIntegrityViolationError(DataIntegrityViolationException exception, HttpServletRequest request) {
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorDto handleDataIntegrityViolationError(DataIntegrityViolationException exception,
+            HttpServletRequest request) {
+        log.info(exception.getMessage());
         return new ErrorDto(
                 LocalDateTime.now(),
-                HttpStatus.BAD_REQUEST.value(),
-                HttpStatus.BAD_REQUEST.name(),
-                exception.getMessage(),
+                HttpStatus.CONFLICT.value(),
+                HttpStatus.CONFLICT.name(),
+                "Erro ao cadastrar. CPF ou email em uso.",
                 request.getServletPath()
         );
     }
@@ -60,19 +64,6 @@ public class RESTExceptionHandler {
         );
     }
 
-    @ExceptionHandler(AlreadyInUseException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorDto handleAlreadyInUseError(
-            AlreadyInUseException exception,
-            HttpServletRequest request) {
-        return new ErrorDto(
-                LocalDateTime.now(),
-                HttpStatus.BAD_REQUEST.value(),
-                HttpStatus.BAD_REQUEST.name(),
-                exception.getMessage(),
-                request.getServletPath()
-        );
-    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -105,7 +96,6 @@ public class RESTExceptionHandler {
                 request.getServletPath()
         );
     }
-
 
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)

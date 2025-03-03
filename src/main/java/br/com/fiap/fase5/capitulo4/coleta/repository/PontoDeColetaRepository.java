@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PontoDeColetaRepository extends MongoRepository<PontoDeColeta, String> {
+
 }
