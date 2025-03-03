@@ -5,6 +5,7 @@ import br.com.fiap.fase5.capitulo4.coleta.service.AgendaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,27 +18,26 @@ public class AgendaController {
     private AgendaService service;
 
     @GetMapping("/agenda/agendamentos")
-    @ResponseStatus(HttpStatus.OK)
-    public List<AgendaDto> listarAgendamentos() {
-        return service.agendamentos();
+    public ResponseEntity<List<AgendaDto>> listarAgendamentos() {
+        return new ResponseEntity<>(service.agendamentos(), HttpStatus.OK);
     }
 
     @PostMapping("/agenda/agendar-coleta")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void agendarColeta(@Valid @RequestBody AgendaDto dto) {
+    public ResponseEntity<Void> agendarColeta(@Valid @RequestBody AgendaDto dto) {
         service.agendarColeta(dto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/agenda/concluir-coleta")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void concluirColeta(@Valid @RequestBody AgendaDto dto) {
+    public ResponseEntity<Void> concluirColeta(@Valid @RequestBody AgendaDto dto) {
         service.concluirColeta(dto);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping("agenda/suspender-coleta")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void suspenderColeta(@Valid @RequestBody String id) {
+    public ResponseEntity<Void> suspenderColeta(@Valid @RequestBody String id) {
         service.suspenderColeta(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

@@ -28,7 +28,7 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/v2/coleta/pontos/listar").hasRole("USER")
                     .requestMatchers(HttpMethod.GET, "/api/v2/coleta/agenda/agendamentos").hasRole("USER")
-                    .requestMatchers(HttpMethod.GET, "api/v2/coleta/rota/lista-de-rotas").hasRole("USER")
+                    .requestMatchers(HttpMethod.GET, "/api/v2/coleta/rota/lista-de-rotas").hasRole("USER")
                     .anyRequest().hasRole("ADMIN"))
                 .addFilterBefore(verificarToken, UsernamePasswordAuthenticationFilter.class)
         .build();

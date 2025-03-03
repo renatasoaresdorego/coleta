@@ -6,6 +6,7 @@ import br.com.fiap.fase5.capitulo4.coleta.model.PontoDeColeta;
 import br.com.fiap.fase5.capitulo4.coleta.repository.PontoDeColetaRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,10 +22,13 @@ public class PontoDeColetaService {
     private PontoDeColetaMapper mapper;
 
     public void cadastrarPontoDeColeta(PontoDeColetaDto dto) {
-        PontoDeColeta pontoDeColeta = new PontoDeColeta();
-        pontoDeColeta.setCapacidadeAtual(definirCapacidadeAtual(dto.capacidadeMaxima()));
-        BeanUtils.copyProperties(dto, pontoDeColeta);
-        repository.save(pontoDeColeta);
+        try {
+            PontoDeColeta pontoDeColeta = mapper.dtoToPontoDeColeta(dto);
+            pontoDeColeta.setCapacidadeAtual(definirCapacidadeAtual(dto.capacidadeMaxima()));
+            repository.save(pontoDeColeta);
+        } catch(DataIntegrityViolationException e) {
+            throw new RuntimeException("Erro ao cadastrar novo ponto de coleta. O ponto de coleta já existe.");
+        }
     }
 
     public List<PontoDeColetaDto> listar() {
@@ -33,7 +37,11 @@ public class PontoDeColetaService {
     }
 
     public void excluir(String id) {
-        repository.deleteById(id);
+        try {
+            repository.deleteById(id);
+        } catch(IllegalArgumentException e) {
+            throw new RuntimeException("Ponto de coleta inexistente.");
+        }
     }
 
     public Double definirCapacidadeAtual(Double capacidadeMaxima) {

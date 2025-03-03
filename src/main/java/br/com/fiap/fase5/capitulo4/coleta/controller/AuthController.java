@@ -35,11 +35,8 @@ public class AuthController {
     public ResponseEntity login(@RequestBody @Valid LoginDto dto) {
         UsernamePasswordAuthenticationToken usernamePassword
                 = new UsernamePasswordAuthenticationToken(dto.cpf(), dto.senha());
-
         Authentication auth = authManager.authenticate(usernamePassword);
-
         String token = tokenService.gerarToken((Usuario) auth.getPrincipal());
-
         return ResponseEntity.ok(token);
     }
 

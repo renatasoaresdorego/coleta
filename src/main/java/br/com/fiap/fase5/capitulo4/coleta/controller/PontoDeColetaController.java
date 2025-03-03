@@ -18,9 +18,9 @@ public class PontoDeColetaController {
     private PontoDeColetaService service;
 
     @PostMapping("/pontos/cadastrar")
-    public ResponseEntity<PontoDeColetaDto> cadastrarPontoDeColeta(@Valid @RequestBody PontoDeColetaDto dto) {
+    public ResponseEntity<Void> cadastrarPontoDeColeta(@Valid @RequestBody PontoDeColetaDto dto) {
         service.cadastrarPontoDeColeta(dto);
-        return new ResponseEntity<>(dto, HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/pontos/listar")
@@ -31,7 +31,7 @@ public class PontoDeColetaController {
     @DeleteMapping("/pontos/excluir/{id}")
     public ResponseEntity<Void> excluirPontoDeColeta(@PathVariable String id) {
         service.excluir(id);
-        return ResponseEntity.ok().build();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

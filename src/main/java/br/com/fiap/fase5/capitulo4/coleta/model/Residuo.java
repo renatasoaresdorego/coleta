@@ -12,7 +12,8 @@ public enum Residuo {
     METAL("Metal"),
     PLASTICO("Plástico"),
     COMUM("Comum"),
-    INFECTANTE("Infectante");
+    INFECTANTE("Infectante"),
+    ELETRONICO("Eletrônico");
 
     private final String residuo;
 

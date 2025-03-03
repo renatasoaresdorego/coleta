@@ -5,6 +5,7 @@ import br.com.fiap.fase5.capitulo4.coleta.service.CaminhaoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,33 +18,31 @@ public class CaminhaoController {
     private CaminhaoService service;
 
     @GetMapping("caminhoes/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public CaminhaoDto buscarCaminhao(@PathVariable String id) {
-        return service.buscar(id);
-    }
-
-    @PostMapping("caminhoes/cadastrar-caminhao")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void cadastrarCaminhao(@Valid @RequestBody CaminhaoDto dto) {
-        service.cadastrar(dto);
-    }
-
-    @PutMapping("caminhoes/atualizar-caminhao")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void atualizarCaminhao(@Valid @RequestBody CaminhaoDto dto) {
-        service.atualizar(dto);
-    }
-
-    @DeleteMapping("caminhoes/excluir-caminhao/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void excluirCaminhao(@PathVariable String id) {
-        service.excluir(id);
+    public ResponseEntity<CaminhaoDto> buscarCaminhao(@PathVariable String id) {
+        return new ResponseEntity<>(service.buscar(id), HttpStatus.OK);
     }
 
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public List<CaminhaoDto> listarCaminhoes() {
-        return service.listar();
+    public ResponseEntity<List<CaminhaoDto>> listarCaminhoes() {
+        return new ResponseEntity<>(service.listar(), HttpStatus.OK);
+    }
+
+    @PostMapping("caminhoes/cadastrar-caminhao")
+    public ResponseEntity<Void> cadastrarCaminhao(@Valid @RequestBody CaminhaoDto dto) {
+        service.cadastrar(dto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PutMapping("caminhoes/atualizar-caminhao")
+    public ResponseEntity<Void> atualizarCaminhao(@Valid @RequestBody CaminhaoDto dto) {
+        service.atualizar(dto);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping("caminhoes/excluir-caminhao/{id}")
+    public ResponseEntity<Void> excluirCaminhao(@PathVariable String id) {
+        service.excluir(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
