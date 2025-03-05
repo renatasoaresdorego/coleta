@@ -1,17 +1,22 @@
 package br.com.fiap.fase5.capitulo4.coleta.dto;
 
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public record AgendaDto(
-        String idAgenda,
+        String id,
 
-        @NotBlank (message = "A rota é obrigatória.")
-        String idRota,
+        @NotNull(message = "A data da próxima coleta é obrigatória.")
+        LocalDateTime dataProximaColeta,
 
-        @NotBlank (message = "A data da próxima coleta é obrigatória.")
-        LocalDate dataProximaColeta
+        LocalDateTime dataUltimaColeta,
+
+        @NotNull(message = "A rota é obrigatória.")
+        String rota,
+
+        @NotNull(message = "O ponto de coleta é obrigatório.")
+        String pontoDeColeta
 ){
 
 }

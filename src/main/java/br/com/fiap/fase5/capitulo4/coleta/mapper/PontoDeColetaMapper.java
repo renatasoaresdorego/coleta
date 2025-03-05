@@ -6,11 +6,13 @@ import br.com.fiap.fase5.capitulo4.coleta.model.PontoDeColeta;
 import br.com.fiap.fase5.capitulo4.coleta.model.Residuo;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface PontoDeColetaMapper {
+    PontoDeColetaMapper INSTANCE = Mappers.getMapper(PontoDeColetaMapper.class);
 
     @Mapping(source = "residuo", target = "residuo")
     PontoDeColeta cadastroDtoToPontoDeColeta(PontoDeColetaCadastroDto dto);

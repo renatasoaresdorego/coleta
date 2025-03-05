@@ -7,5 +7,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RotaRepository extends MongoRepository<Rota, String> {
 
-    Rota findRotaById(String id);
 }

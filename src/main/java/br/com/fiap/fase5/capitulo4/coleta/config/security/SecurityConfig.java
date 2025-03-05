@@ -27,7 +27,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/auth/cadastro").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v2/coleta/pontos-de-coleta/listar").hasRole("USER")
-                        .requestMatchers(HttpMethod.GET, "/api/v2/coleta/agenda/agendamentos").hasRole("USER")
+                        .requestMatchers(HttpMethod.GET, "/api/v2/coleta/agenda/coletas-agendadas").hasRole("USER")
                         .requestMatchers(HttpMethod.GET, "/api/v2/coleta/rotas/listar").hasRole("USER")
                         .requestMatchers(HttpMethod.PUT, "/api/v2/coleta/usuario/atualizar-dados").hasRole("USER")
                     .anyRequest().hasRole("ADMIN"))

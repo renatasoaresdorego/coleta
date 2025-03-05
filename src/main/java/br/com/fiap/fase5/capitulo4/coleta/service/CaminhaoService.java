@@ -20,12 +20,9 @@ public class CaminhaoService {
     @Autowired
     private CaminhaoRepository repository;
 
-    @Autowired
-    private CaminhaoMapper mapper;
-
     public void cadastrar(CaminhaoDto dto) {
         try {
-            repository.save(mapper.caminhaoDtoToCaminhao(dto));
+            repository.save(CaminhaoMapper.INSTANCE.caminhaoDtoToCaminhao(dto));
             log.info("Caminhão cadastrado com sucesso.");
         } catch(DataIntegrityViolationException e) {
             throw new RuntimeException("Erro. Caminhão já cadastrado.");
@@ -35,7 +32,7 @@ public class CaminhaoService {
     public void atualizar(CaminhaoDto dto) {
         Caminhao caminhao = repository.findById(dto.idCaminhao())
                 .orElseThrow(() -> new RuntimeException("Caminhão não encontrado."));
-        caminhao = mapper.caminhaoDtoToCaminhao(dto);
+        caminhao = CaminhaoMapper.INSTANCE.caminhaoDtoToCaminhao(dto);
         repository.save(caminhao);
         log.info("Caminhão atualizado com sucesso.");
     }
@@ -43,14 +40,14 @@ public class CaminhaoService {
     public CaminhaoDto buscar(String id) {
         Caminhao caminhao =  repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Caminhão não encontrado"));
-        return mapper.caminhaoToCaminhaoDto(caminhao);
+        return CaminhaoMapper.INSTANCE.caminhaoToCaminhaoDto(caminhao);
     }
 
     public List<CaminhaoDto> listar() {
         List<Caminhao> caminhoes = repository.findAll();
         List<CaminhaoDto> caminhoesDto = new ArrayList<>();
         for(Caminhao caminhao : caminhoes) {
-           caminhoesDto.add(mapper.caminhaoToCaminhaoDto(caminhao));
+           caminhoesDto.add(CaminhaoMapper.INSTANCE.caminhaoToCaminhaoDto(caminhao));
         }
         return caminhoesDto;
     }

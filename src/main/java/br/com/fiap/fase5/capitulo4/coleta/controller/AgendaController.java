@@ -15,28 +15,28 @@ import java.util.List;
 public class AgendaController {
 
     @Autowired
-    private AgendaService service;
-
-    @GetMapping("/agenda/agendamentos")
-    public ResponseEntity<List<AgendaDto>> listarAgendamentos() {
-        return new ResponseEntity<>(service.agendamentos(), HttpStatus.OK);
-    }
+    private AgendaService agendaService;
 
     @PostMapping("/agenda/agendar-coleta")
-    public ResponseEntity<Void> agendarColeta(@Valid @RequestBody AgendaDto dto) {
-        service.agendarColeta(dto);
+    public ResponseEntity<Void> agendar(@RequestBody @Valid AgendaDto dto) {
+        agendaService.agendar(dto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @GetMapping("/agenda/coletas-agendadas")
+    public ResponseEntity<List<AgendaDto>> listar() {
+        return new ResponseEntity<>(agendaService.agendamentos(), HttpStatus.OK);
+    }
+
     @PutMapping("/agenda/concluir-coleta")
-    public ResponseEntity<Void> concluirColeta(@Valid @RequestBody AgendaDto dto) {
-        service.concluirColeta(dto);
+    public ResponseEntity<Void> concluir(@RequestBody @Valid String id) {
+        agendaService.concluir(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping("agenda/suspender-coleta")
-    public ResponseEntity<Void> suspenderColeta(@Valid @RequestBody String id) {
-        service.suspenderColeta(id);
+    public ResponseEntity<Void> suspender(@RequestBody @Valid String id) {
+        agendaService.suspender(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

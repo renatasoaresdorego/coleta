@@ -22,12 +22,9 @@ public class PontoDeColetaService {
     @Autowired
     private PontoDeColetaRepository repository;
 
-    @Autowired
-    private PontoDeColetaMapper mapper;
-
     public void cadastrar(PontoDeColetaCadastroDto dto) {
         try {
-            PontoDeColeta pontoDeColeta = mapper.cadastroDtoToPontoDeColeta(dto);
+            PontoDeColeta pontoDeColeta = PontoDeColetaMapper.INSTANCE.cadastroDtoToPontoDeColeta(dto);
             pontoDeColeta.setCapacidadeAtual(definirCapacidadeAtual(dto.capacidadeMaxima()));
             repository.save(pontoDeColeta);
             log.info("Ponto de coleta salvo com sucesso.");
@@ -38,12 +35,18 @@ public class PontoDeColetaService {
 
     public List<PontoDeColetaExibicaoDto> listar() {
         List<PontoDeColeta> pontosDeColeta = repository.findAll();
-        return mapper.listaExibicaoDtoToListaPontoDeColeta(pontosDeColeta);
+        return PontoDeColetaMapper.INSTANCE.listaExibicaoDtoToListaPontoDeColeta(pontosDeColeta);
+    }
+
+    public PontoDeColetaExibicaoDto buscar(String id) {
+        PontoDeColeta pontoDeColeta = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Ponto de coleta não encontrado."));
+        return PontoDeColetaMapper.INSTANCE.pontoDeColetaToExibicaoDto(pontoDeColeta);
     }
 
     public void atualizar(PontoDeColetaCadastroDto dto) {
         repository.findById(dto.id()).orElseThrow(() -> new RuntimeException("Ponto de coleta não encontrado."));
-        repository.save(mapper.cadastroDtoToPontoDeColeta(dto));
+        repository.save(PontoDeColetaMapper.INSTANCE.cadastroDtoToPontoDeColeta(dto));
         log.info("Ponto de coleta atualizado com sucesso.");
     }
 

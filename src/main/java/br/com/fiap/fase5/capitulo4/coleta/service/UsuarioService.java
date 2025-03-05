@@ -20,17 +20,14 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository repository;
 
-    @Autowired
-    private UsuarioMapper mapper;
-
     public UsuarioExibicaoDto cadastrar(UsuarioCadastroDto dto) {
         try {
-            Usuario usuario = mapper.usuarioCadastroDtoToUsuario(dto);
+            Usuario usuario = UsuarioMapper.INSTANCE.usuarioCadastroDtoToUsuario(dto);
             usuario.setSenha(criptografarSenha(dto.senha()));
             usuario.setRole(atribuirRole(dto.role()));
             repository.save(usuario);
             log.info("Usuário cadastrado com sucesso.", usuario);
-            return mapper.usuarioToUsuarioExibicaoDto(usuario);
+            return UsuarioMapper.INSTANCE.usuarioToUsuarioExibicaoDto(usuario);
         } catch(IllegalArgumentException e) {
             throw new RuntimeException("Este usuário já está cadastrado.");
         }
@@ -39,7 +36,7 @@ public class UsuarioService {
     public void atualizar(UsuarioCadastroDto dto) {
         try {
             Usuario usuario = repository.findUsuarioByCpf(dto.cpf());
-            usuario = mapper.usuarioCadastroDtoToUsuario(dto);
+            usuario = UsuarioMapper.INSTANCE.usuarioCadastroDtoToUsuario(dto);
             repository.save(usuario);
             log.info("Usuário atualizado com sucesso.");
         } catch(DataIntegrityViolationException e) {
