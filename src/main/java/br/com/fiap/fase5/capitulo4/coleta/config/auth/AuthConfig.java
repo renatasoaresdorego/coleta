@@ -6,7 +6,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 
 @Configuration
-public class AuthenticationConfig {
+public class AuthConfig {
 
     @Bean
     public AuthenticationManager authManager(AuthenticationConfiguration authConfig) throws Exception {

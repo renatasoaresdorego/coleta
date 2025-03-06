@@ -9,6 +9,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface RotaMapper {
+
     RotaMapper INSTANCE = Mappers.getMapper(RotaMapper.class);
 
     Rota dtoToRota(RotaDto dto);

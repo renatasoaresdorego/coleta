@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CaminhaoRepository extends MongoRepository<Caminhao, String> {
+
+    Caminhao findCaminhaoByPlaca(String placa);
+    void deleteCaminhaoByPlaca(String placa);
 }

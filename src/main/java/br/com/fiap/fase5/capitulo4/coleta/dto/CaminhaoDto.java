@@ -1,21 +1,22 @@
 package br.com.fiap.fase5.capitulo4.coleta.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public record CaminhaoDto(
 
-        String idCaminhao,
+        String id,
 
         @NotBlank(message = "O id da rota é obrigatório.")
-        String idRota,
+        String rota,
 
-        @NotBlank(message = "A capacidade é obrigatória.")
+        @NotNull(message = "A capacidade é obrigatória.")
         Long capacidade,
 
         @NotBlank(message = "Placa é obrigatória.")
         String placa,
 
-        @NotBlank(message = "O status do serviço é obrigatório.")
+        @NotNull(message = "O status do serviço é obrigatório.")
         Boolean statusServico
 ) {
 }

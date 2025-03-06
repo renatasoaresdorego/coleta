@@ -10,5 +10,6 @@ public interface UsuarioRepository extends MongoRepository<Usuario, String> {
 
     UserDetails findByCpf(String cpf);
     Usuario findUsuarioByCpf(String cpf);
+    void deleteUsuarioByCpf(String cpf);
 
 }

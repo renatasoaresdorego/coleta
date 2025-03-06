@@ -5,6 +5,7 @@ import br.com.fiap.fase5.capitulo4.coleta.dto.UsuarioCadastroDto;
 import br.com.fiap.fase5.capitulo4.coleta.dto.UsuarioExibicaoDto;
 import br.com.fiap.fase5.capitulo4.coleta.model.Usuario;
 import br.com.fiap.fase5.capitulo4.coleta.service.UsuarioService;
+import br.com.fiap.fase5.capitulo4.coleta.service.auth.AuthService;
 import br.com.fiap.fase5.capitulo4.coleta.service.auth.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     @Autowired
-    private UsuarioService usuarioService;
+    private AuthService authService;
 
     @Autowired
     private TokenService tokenService;
@@ -40,9 +41,9 @@ public class AuthController {
         return ResponseEntity.ok(token);
     }
 
-    @PostMapping("/cadastro")
-    public ResponseEntity cadastrar(@RequestBody @Valid UsuarioCadastroDto dto) {
-        return new ResponseEntity(usuarioService.cadastrar(dto), HttpStatus.CREATED);
+    @PostMapping("/novo-admin")
+    public ResponseEntity<UsuarioExibicaoDto> cadastrar(@RequestBody @Valid UsuarioCadastroDto dto) {
+        return new ResponseEntity<>(authService.cadastrarAdmin(dto), HttpStatus.CREATED);
     }
 
 }

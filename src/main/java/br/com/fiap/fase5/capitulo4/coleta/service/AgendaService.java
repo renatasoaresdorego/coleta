@@ -1,6 +1,8 @@
 package br.com.fiap.fase5.capitulo4.coleta.service;
 
+import br.com.fiap.fase5.capitulo4.coleta.dto.AgendaAtualizacaoDto;
 import br.com.fiap.fase5.capitulo4.coleta.dto.AgendaDto;
+import br.com.fiap.fase5.capitulo4.coleta.dto.AgendaExibicaoDto;
 import br.com.fiap.fase5.capitulo4.coleta.dto.RotaDto;
 import br.com.fiap.fase5.capitulo4.coleta.mapper.AgendaMapper;
 import br.com.fiap.fase5.capitulo4.coleta.mapper.PontoDeColetaMapper;
@@ -38,6 +40,7 @@ public class AgendaService {
             agenda.setRota(RotaMapper.INSTANCE.dtoToRota(rotaService.buscar(dto.rota())));
             agenda.setPontoDeColeta(PontoDeColetaMapper.INSTANCE.exibicaoDtoToPontoDeColeta(
                     pontoDeColetaService.buscar(dto.pontoDeColeta())));
+            agenda.setDataProximaColeta(dto.dataProximaColeta());
             agenda.setDataUltimaColeta(LocalDateTime.now());
             repository.save(agenda);
             log.info("Coleta agendada com sucesso.");
@@ -46,15 +49,17 @@ public class AgendaService {
         }
     }
 
-    public List<AgendaDto> agendamentos() {
+    public List<AgendaExibicaoDto> agendamentos() {
         List<Agenda> agendas = repository.findAll();
-        return AgendaMapper.INSTANCE.agendasToAgendasDto(agendas);
+        log.info("Coletas agendadas listadas com sucesso.", agendas);
+        return AgendaMapper.INSTANCE.listaAgendaToListaExibicaoDto(agendas);
     }
 
-    public void concluir(String id) {
+    public void concluir(AgendaAtualizacaoDto dto) {
         try {
-            Agenda agenda = repository.findById(id).orElseThrow(() -> new RuntimeException("Agenda não encontrada."));
+            Agenda agenda = repository.findById(dto.id()).orElseThrow(() -> new RuntimeException("Agenda não encontrada."));
             agenda.setDataUltimaColeta(LocalDateTime.now());
+            agenda.setDataProximaColeta(LocalDateTime.of(1970, 01, 01, 00, 00));
             repository.save(agenda);
             log.info("Coleta concluída com sucesso.");
         } catch (IllegalArgumentException e) {
@@ -67,6 +72,14 @@ public class AgendaService {
         agenda.setDataProximaColeta(LocalDateTime.MIN);
         repository.save(agenda);
         log.info("Coleta suspensa com sucesso.");
+    }
+
+    public void excluir(String id) {
+        try {
+            repository.deleteById(id);
+        } catch(DataIntegrityViolationException e) {
+            throw new RuntimeException("Coleta excluída com sucesso.");
+        }
     }
 
 }

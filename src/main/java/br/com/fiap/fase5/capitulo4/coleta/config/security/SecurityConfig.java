@@ -24,12 +24,14 @@ public class SecurityConfig {
         return httpSecurity.csrf(AbstractHttpConfigurer::disable)
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, "/auth/cadastro").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/v2/coleta/pontos-de-coleta/listar").hasRole("USER")
-                        .requestMatchers(HttpMethod.GET, "/api/v2/coleta/agenda/coletas-agendadas").hasRole("USER")
-                        .requestMatchers(HttpMethod.GET, "/api/v2/coleta/rotas/listar").hasRole("USER")
+                        .requestMatchers(HttpMethod.POST, "/api/v2/coleta/usuario/cadastro").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/api/v2/coleta/usuario/atualizar-dados").hasRole("USER")
+                        .requestMatchers(HttpMethod.GET, "/api/v2/coleta/pontos-de-coleta/listar/").hasRole("USER")
+                        .requestMatchers(HttpMethod.GET, "/api/v2/coleta/agenda/coletas-agendadas/").hasRole("USER")
+                        .requestMatchers(HttpMethod.GET, "/api/v2/coleta/caminhoes/buscar/").hasRole("USER")
+                        .requestMatchers(HttpMethod.GET, "/api/v2/coleta/caminhoes/listar").hasRole("USER")
+                        .requestMatchers(HttpMethod.GET, "/api/v2/coleta/rotas/listar/").hasRole("USER")
                     .anyRequest().hasRole("ADMIN"))
                 .addFilterBefore(verificarToken, UsernamePasswordAuthenticationFilter.class)
         .build();

@@ -29,8 +29,8 @@ public class RotaService {
         }
     }
 
-    public RotaDto buscar(String nome) {
-        return RotaMapper.INSTANCE.rotaToDto(repository.findById(nome)
+    public RotaDto buscar(String id) {
+        return RotaMapper.INSTANCE.rotaToDto(repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("A rota informada não está cadastrada.")));
     }
 

@@ -12,6 +12,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface PontoDeColetaMapper {
+
     PontoDeColetaMapper INSTANCE = Mappers.getMapper(PontoDeColetaMapper.class);
 
     @Mapping(source = "residuo", target = "residuo")

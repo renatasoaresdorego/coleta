@@ -1,6 +1,5 @@
 package br.com.fiap.fase5.capitulo4.coleta.dto;
 
-import br.com.fiap.fase5.capitulo4.coleta.model.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -27,9 +26,6 @@ public record UsuarioCadastroDto(
 
         @Size(min = 6, max = 8, message = "A senha deve conter entre 6 e 8 dígitos" )
         @NotBlank(message = "A senha é obrigatória.")
-        String senha,
-
-        Role role
-
+        String senha
 ) {
 }

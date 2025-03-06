@@ -1,16 +1,16 @@
 package br.com.fiap.fase5.capitulo4.coleta.service;
 
+import br.com.fiap.fase5.capitulo4.coleta.dto.UsuarioAtualizarDto;
 import br.com.fiap.fase5.capitulo4.coleta.dto.UsuarioCadastroDto;
 import br.com.fiap.fase5.capitulo4.coleta.dto.UsuarioExibicaoDto;
 import br.com.fiap.fase5.capitulo4.coleta.mapper.UsuarioMapper;
 import br.com.fiap.fase5.capitulo4.coleta.model.Role;
 import br.com.fiap.fase5.capitulo4.coleta.model.Usuario;
 import br.com.fiap.fase5.capitulo4.coleta.repository.UsuarioRepository;
+import br.com.fiap.fase5.capitulo4.coleta.service.auth.AuthService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -20,11 +20,14 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository repository;
 
+    @Autowired
+    private AuthService authService;
+
     public UsuarioExibicaoDto cadastrar(UsuarioCadastroDto dto) {
         try {
             Usuario usuario = UsuarioMapper.INSTANCE.usuarioCadastroDtoToUsuario(dto);
-            usuario.setSenha(criptografarSenha(dto.senha()));
-            usuario.setRole(atribuirRole(dto.role()));
+            usuario.setSenha(authService.criptografarSenha(dto.senha()));
+            usuario.setRole(Role.USER);
             repository.save(usuario);
             log.info("Usuário cadastrado com sucesso.", usuario);
             return UsuarioMapper.INSTANCE.usuarioToUsuarioExibicaoDto(usuario);
@@ -33,10 +36,11 @@ public class UsuarioService {
         }
     }
 
-    public void atualizar(UsuarioCadastroDto dto) {
+    public void atualizar(UsuarioAtualizarDto dto) {
         try {
             Usuario usuario = repository.findUsuarioByCpf(dto.cpf());
-            usuario = UsuarioMapper.INSTANCE.usuarioCadastroDtoToUsuario(dto);
+            usuario.setEmail(dto.email());
+            usuario.setTelefone(dto.telefone());
             repository.save(usuario);
             log.info("Usuário atualizado com sucesso.");
         } catch(DataIntegrityViolationException e) {
@@ -44,22 +48,19 @@ public class UsuarioService {
         }
     }
 
-    public String criptografarSenha(String senha) {
-        return new BCryptPasswordEncoder().encode(senha);
+    public UsuarioExibicaoDto buscar(String cpf) {
+        try {
+            return UsuarioMapper.INSTANCE.usuarioToUsuarioExibicaoDto(repository.findUsuarioByCpf(cpf));
+        } catch(IllegalArgumentException e) {
+            throw new RuntimeException("O CPF informado não está cadastrado.");
+        }
     }
 
-    public Role atribuirRole(Role role) {
+    public void excluir(String cpf) {
         try {
-            if(role == Role.ADMIN) {
-                log.info("Atribuída a role de admin.");
-                return Role.ADMIN;
-            }
-            else {
-                log.info("Atribuída a role de user.");
-                return Role.USER;
-            }
-        } catch (IllegalArgumentException e) {
-            throw new RuntimeException("Role inválida.");
+            repository.deleteUsuarioByCpf(cpf);
+        } catch(IllegalArgumentException e) {
+            throw new RuntimeException("Usuário não encontrado.");
         }
     }
 
