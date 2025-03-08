@@ -43,7 +43,7 @@ public class CaminhaoController {
     @DeleteMapping("/caminhoes/excluir-caminhao/{placa}")
     public ResponseEntity<Void> excluir(@PathVariable String placa) {
         service.excluir(placa);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

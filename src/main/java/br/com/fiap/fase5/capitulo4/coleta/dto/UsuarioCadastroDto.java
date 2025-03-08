@@ -10,7 +10,7 @@ public record UsuarioCadastroDto(
         String id,
 
         @NotBlank(message = "O campo 'cpf' é obrigatório")
-        @Pattern( regexp = "^(\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}|\\d{11})$", message = "CPF inválido" )
+        @Pattern(regexp = "^(\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}|\\d{11})$", message = "CPF inválido" )
         String cpf,
 
         @NotBlank(message = "O nome do morador é obrigatório.")

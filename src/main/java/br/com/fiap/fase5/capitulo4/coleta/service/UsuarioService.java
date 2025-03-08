@@ -43,7 +43,7 @@ public class UsuarioService {
             usuario.setTelefone(dto.telefone());
             repository.save(usuario);
             log.info("Usuário atualizado com sucesso.");
-        } catch(DataIntegrityViolationException e) {
+        } catch(DataIntegrityViolationException | NullPointerException e) {
             throw new RuntimeException("Usuário não encontrado.");
         }
     }

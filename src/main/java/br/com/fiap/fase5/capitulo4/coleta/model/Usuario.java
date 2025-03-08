@@ -3,7 +3,6 @@ package br.com.fiap.fase5.capitulo4.coleta.model;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -24,6 +23,7 @@ public class Usuario implements UserDetails {
 
     private String nome;
 
+    @Indexed(unique = true)
     private String telefone;
 
     @Indexed(unique = true)

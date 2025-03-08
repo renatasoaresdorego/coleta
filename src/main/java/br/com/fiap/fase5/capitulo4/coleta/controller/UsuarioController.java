@@ -28,7 +28,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/usuario/atualizar-dados")
-    public ResponseEntity<Void> atualizar(UsuarioAtualizarDto dto) {
+    public ResponseEntity<Void> atualizar(@RequestBody @Valid UsuarioAtualizarDto dto) {
         service.atualizar(dto);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
