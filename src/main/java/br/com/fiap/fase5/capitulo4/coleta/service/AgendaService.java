@@ -3,16 +3,11 @@ package br.com.fiap.fase5.capitulo4.coleta.service;
 import br.com.fiap.fase5.capitulo4.coleta.dto.AgendaAtualizacaoDto;
 import br.com.fiap.fase5.capitulo4.coleta.dto.AgendaDto;
 import br.com.fiap.fase5.capitulo4.coleta.dto.AgendaExibicaoDto;
-import br.com.fiap.fase5.capitulo4.coleta.dto.RotaDto;
 import br.com.fiap.fase5.capitulo4.coleta.mapper.AgendaMapper;
 import br.com.fiap.fase5.capitulo4.coleta.mapper.PontoDeColetaMapper;
 import br.com.fiap.fase5.capitulo4.coleta.mapper.RotaMapper;
 import br.com.fiap.fase5.capitulo4.coleta.model.Agenda;
-import br.com.fiap.fase5.capitulo4.coleta.model.PontoDeColeta;
-import br.com.fiap.fase5.capitulo4.coleta.model.Rota;
 import br.com.fiap.fase5.capitulo4.coleta.repository.AgendaRepository;
-import br.com.fiap.fase5.capitulo4.coleta.repository.PontoDeColetaRepository;
-import br.com.fiap.fase5.capitulo4.coleta.repository.RotaRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -24,7 +19,6 @@ import java.util.List;
 @Slf4j
 @Service
 public class AgendaService {
-
     @Autowired
     private AgendaRepository repository;
 

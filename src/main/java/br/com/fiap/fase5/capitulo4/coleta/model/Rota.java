@@ -8,7 +8,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @Document(collection = "rotas")
 public class Rota {
-
     @Id
     private String id;
 
