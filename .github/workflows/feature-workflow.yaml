@@ -1,4 +1,4 @@
-name: Application Lifecycle Management - Aplicando Técnicas de DevOps
+name: Build and Push Docker - Aplicando Técnicas de DevOps
 
 on:
   push:
@@ -9,22 +9,17 @@ on:
       - 'develop'
 
 jobs:
-  checkout-docker:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup JDK
+      - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '21'
-      - name: Build
-        uses: docker/build-push-action@v6
-        with:
-          push: false
-      - name: Execute
-        run: |
-          git branch
-          java --version
-          mvn clean package
+      - name: Build with Maven
+        run: mvn clean package
+      - name: Build Docker image
+        run: docker build -t coleta-app .
