@@ -1,0 +1,30 @@
+name: Application Lifecycle Management - Aplicando Técnicas de DevOps
+
+on:
+  push:
+    branches:
+      - 'feature/**'
+  pull_request:
+    branches:
+      - 'develop'
+
+jobs:
+  checkout-docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+      - name: Build
+        uses: docker/build-push-action@v6
+        with:
+          push: false
+      - name: Execute
+        run: |
+          git branch
+          java --version
+          mvn clean package

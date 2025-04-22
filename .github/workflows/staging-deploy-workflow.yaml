@@ -1,0 +1,8 @@
+name: Application Lifecycle Management - Aplicando Técnicas de DevOps
+
+on:
+  pull_request:
+    branches:
+      - 'main'
+jobs:
+
