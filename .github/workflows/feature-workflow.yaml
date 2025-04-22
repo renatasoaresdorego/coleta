@@ -11,10 +11,15 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    services:
+      mongodb:
+        image: mongo:6.0
+        ports:
+          - 27017:27017
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Set up JDK
+      - name: Setup JDK
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
