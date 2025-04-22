@@ -1,6 +1,5 @@
-FROM eclipse-temurim:21-alpine
-VOLUME /tmp
+FROM eclipse-temurin:21-jdk-alpine
+WORKDIR /app
+COPY target/coleta-1.0.0-SNAPSHOT.jar app.jar
 EXPOSE 8080
-ARG JAR_FILE=target/coleta-0.0.1-SNAPSHOT.jar
-ADD ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","app/jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
