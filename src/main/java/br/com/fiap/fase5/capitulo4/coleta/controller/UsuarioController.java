@@ -23,7 +23,7 @@ public class UsuarioController {
     private UsuarioService service;
 
     @PostMapping("/usuario/cadastro")
-    @ApiResponse(responseCode = "200", description = "Usuário excluído com sucesso.")
+    @ApiResponse(responseCode = "200", description = "Usuário cadastrado com sucesso.")
     @ApiResponse(responseCode = "400", description = "Verifique os dados informados.")
     @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso.")
     public ResponseEntity<UsuarioExibicaoDto> cadastrar(@RequestBody @Valid UsuarioCadastroDto dto) {
@@ -37,7 +37,7 @@ public class UsuarioController {
         return new ResponseEntity<>(service.buscar(cpf), HttpStatus.OK);
     }
 
-    @ApiResponse(responseCode = "203", description = "Usuário atualizada com sucesso.")
+    @ApiResponse(responseCode = "202", description = "Usuário atualizada com sucesso.")
     @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso.")
     @PutMapping("/usuario/atualizar-dados")
     public ResponseEntity<Void> atualizar(@RequestBody @Valid UsuarioAtualizarDto dto) {

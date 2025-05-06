@@ -6,7 +6,6 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 public record UsuarioCadastroDto(
-
         String id,
 
         @NotBlank(message = "O campo 'cpf' é obrigatório")

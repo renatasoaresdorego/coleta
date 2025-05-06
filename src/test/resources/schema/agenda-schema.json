@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string" },
+    "dataProximaColeta": { "type": "string", "format": "date-time" },
+    "dataUltimaColeta": { "type": "string", "format": "date-time" },
+    "rota": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "nome": { "type": "string" },
+        "inicio": { "type": "string" },
+        "fim": { "type": "string" }
+      },
+      "required": ["id", "nome", "inicio", "fim"]
+    },
+    "pontoDeColeta": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "endereco": { "type": "string" },
+        "capacidadeMaxima": { "type": "number" },
+        "residuo": { "type": "string" }
+      },
+      "required": ["id", "endereco", "capacidadeMaxima", "residuo"]
+    }
+  },
+  "required": ["id", "dataProximaColeta", "dataUltimaColeta", "rota", "pontoDeColeta"]
+}

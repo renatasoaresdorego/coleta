@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string" },
+    "endereco": { "type": "string" },
+    "capacidadeMaxima": { "type": "number", "minimum": 0 },
+    "capacidadeAtual": { "type": "number", "minimum": 0 },
+    "residuo": { "type": "string", "enum": ["PLASTICO", "VIDRO", "PAPEL", "METAL"] }
+  },
+  "required": ["id", "endereco", "capacidadeMaxima", "capacidadeAtual", "residuo"]
+}
