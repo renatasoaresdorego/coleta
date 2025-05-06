@@ -14,32 +14,6 @@ import java.util.Map;
 public class UsuarioFeatureSteps {
     UsuarioFeatureService usuarioFeatureService = new UsuarioFeatureService();
 
-    @Dado("os meus dados pessoais:")
-    public void osMeusDadosPessoais(List<Map<String, String>> linhas) {
-        for(Map<String, String> colunas : linhas) {
-            usuarioFeatureService.setAtributosUsuario(colunas.get("atributo"), colunas.get("valor"));
-        }
-    }
-
-    @Quando("eu enviar a requisição para o endpoint {string}")
-    public void euEnviarARequisiçãoParaOEndpoint(String endPoint) {
-        usuarioFeatureService.criarUsuario(endPoint);
-    }
-
-    @Então("o status code da resposta deverá ser {int}")
-    public void oStatusCodeDaRespostaDeveráSer(int statusCode) {
-        Assert.assertEquals(statusCode, usuarioFeatureService.response.getStatusCode());
-    }
-
-    @E("o corpo da resposta deverá retornar a mensagem {string}")
-    public void oCorpoDaRespostaDeveráRetornarAMensagem(String message) {
-        if (usuarioFeatureService.response == null) {
-            throw new IllegalStateException("A resposta da requisição é nula. Certifique-se de que a requisição foi enviada corretamente.");
-        }
-        ErrorMessageModel errorMessageModel = usuarioFeatureService.gson.fromJson(
-                usuarioFeatureService.response.jsonPath().prettify(), ErrorMessageModel.class);
-        Assert.assertEquals(message, errorMessageModel.getMessage());
-    }
 
     @Dado("que eu recupere o CPF do usuário")
     public void queEuRecupereOCPFDoUsuário() {
@@ -59,6 +33,33 @@ public class UsuarioFeatureSteps {
     @Quando("eu enviar a requisição para buscar o usuário no endpoint {string} com o CPF {string}")
     public void euEnviarARequisiçãoParaBuscarOUsuárioNoEndpointComOCPF(String endPoint, String cpf) {
         usuarioFeatureService.buscarUsuario(endPoint, cpf);
+    }
+
+    @Dado("os meus dados pessoais:")
+    public void osMeusDadosPessoais(List<Map<String, String>> linhas) {
+        for (Map<String, String> colunas : linhas) {
+            usuarioFeatureService.setAtributosUsuario(colunas.get("atributo"), colunas.get("valor"));
+        }
+    }
+
+    @Quando("eu enviar a requisição para o endpoint {string}")
+    public void euEnviarARequisiçãoParaOEndpoint(String endPoint) {
+        usuarioFeatureService.criarUsuario(endPoint);
+    }
+
+    @Então("o status code da resposta deverá ser {int}")
+    public void oStatusCodeDaRespostaDeveráSer(int statusCode) {
+        Assert.assertEquals(statusCode, usuarioFeatureService.response.getStatusCode());
+    }
+
+    @E("o corpo da resposta deverá retornar a mensagem {string}")
+    public void oCorpoDaRespostaDeveráRetornarAMensagem(String mensagemEsperada) {
+        if (usuarioFeatureService.response == null) {
+            throw new IllegalStateException("A resposta da requisição é nula. Certifique-se de que a requisição foi enviada corretamente.");
+        }
+        ErrorMessageModel errorMessageModel = usuarioFeatureService.gson.fromJson(
+                usuarioFeatureService.response.jsonPath().prettify(), ErrorMessageModel.class);
+        Assert.assertEquals(mensagemEsperada, errorMessageModel.getMessage());
     }
 
     @E("o corpo da resposta deverá conter os dados do usuário")

@@ -8,6 +8,7 @@ import br.com.fiap.fase5.capitulo4.coleta.model.Role;
 import br.com.fiap.fase5.capitulo4.coleta.model.Usuario;
 import br.com.fiap.fase5.capitulo4.coleta.repository.UsuarioRepository;
 import br.com.fiap.fase5.capitulo4.coleta.service.auth.AuthService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -23,17 +24,13 @@ public class UsuarioService {
     @Autowired
     private AuthService authService;
 
-    public UsuarioExibicaoDto cadastrar(UsuarioCadastroDto dto) {
-        try {
-            Usuario usuario = UsuarioMapper.INSTANCE.usuarioCadastroDtoToUsuario(dto);
-            usuario.setSenha(authService.criptografarSenha(dto.senha()));
-            usuario.setRole(Role.USER);
-            repository.save(usuario);
-            log.info("Usuário cadastrado com sucesso.", usuario);
-            return UsuarioMapper.INSTANCE.usuarioToUsuarioExibicaoDto(usuario);
-        } catch(IllegalArgumentException e) {
-            throw new RuntimeException("Este usuário já está cadastrado.");
-        }
+    public UsuarioExibicaoDto cadastrar(@Valid UsuarioCadastroDto dto) {
+        Usuario usuario = UsuarioMapper.INSTANCE.usuarioCadastroDtoToUsuario(dto);
+        usuario.setSenha(authService.criptografarSenha(dto.senha()));
+        usuario.setRole(Role.USER);
+        repository.save(usuario);
+        log.info("Usuário cadastrado com sucesso.", usuario);
+        return UsuarioMapper.INSTANCE.usuarioToUsuarioExibicaoDto(usuario);
     }
 
     public void atualizar(UsuarioAtualizarDto dto) {

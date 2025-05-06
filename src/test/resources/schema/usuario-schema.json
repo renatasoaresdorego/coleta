@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "cpf": { "type": "string", "pattern": "^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$" },
+    "nome": { "type": "string", "minLength": 1 },
+    "telefone": { "type": "string", "pattern": "^\\d{10,11}$" },
+    "email": { "type": "string", "format": "email" },
+    "senha": { "type": "string", "minLength": 6, "maxLength": 8 }
+  },
+  "required": ["cpf", "nome", "telefone", "email", "senha"]
+}

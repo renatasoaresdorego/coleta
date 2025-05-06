@@ -6,8 +6,6 @@ import com.google.gson.GsonBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
-import java.time.LocalDateTime;
-
 import static io.restassured.RestAssured.given;
 
 public class AgendaFeatureService {
@@ -20,7 +18,6 @@ public class AgendaFeatureService {
 
     public void setAtributosAgenda(String atributo, String valor) {
         switch (atributo) {
-            case "dataProximaColeta" -> agendaFeatureModel.setDataProximaColeta(LocalDateTime.parse(valor));
             case "rota" -> agendaFeatureModel.setRota(valor);
             case "pontoDeColeta" -> agendaFeatureModel.setPontoDeColeta(valor);
             default -> throw new IllegalStateException("Atributo inválido.");

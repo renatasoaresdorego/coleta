@@ -29,6 +29,8 @@ public class AgendaService {
     private PontoDeColetaService pontoDeColetaService;
 
     public void agendar(AgendaDto dto) {
+        validarDadosObrigatorios(dto);
+
         try {
             Agenda agenda = new Agenda();
             agenda.setRota(RotaMapper.INSTANCE.dtoToRota(rotaService.buscar(dto.rota())));
@@ -40,6 +42,15 @@ public class AgendaService {
             log.info("Coleta agendada com sucesso.");
         } catch (DataIntegrityViolationException e) {
             throw new RuntimeException("Ocorreu um erro ao agendar a coleta. Verifique os dados informados.");
+        }
+    }
+
+    private void validarDadosObrigatorios(AgendaDto dto) {
+        if (dto.rota() == null || dto.rota().isBlank()) {
+            throw new RuntimeException("{rota=A rota é obrigatória}");
+        }
+        if (dto.pontoDeColeta() == null || dto.pontoDeColeta().isBlank()) {
+            throw new RuntimeException("{pontoDeColeta=O ponto de coleta é obrigatório}");
         }
     }
 
@@ -71,9 +82,8 @@ public class AgendaService {
     public void excluir(String id) {
         try {
             repository.deleteById(id);
-        } catch(DataIntegrityViolationException e) {
+        } catch (DataIntegrityViolationException e) {
             throw new RuntimeException("Coleta excluída com sucesso.");
         }
     }
-
 }
