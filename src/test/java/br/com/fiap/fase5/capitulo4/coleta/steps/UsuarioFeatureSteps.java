@@ -33,6 +33,9 @@ public class UsuarioFeatureSteps {
 
     @E("o corpo da resposta deverá retornar a mensagem {string}")
     public void oCorpoDaRespostaDeveráRetornarAMensagem(String message) {
+        if (usuarioFeatureService.response == null) {
+            throw new IllegalStateException("A resposta da requisição é nula. Certifique-se de que a requisição foi enviada corretamente.");
+        }
         ErrorMessageModel errorMessageModel = usuarioFeatureService.gson.fromJson(
                 usuarioFeatureService.response.jsonPath().prettify(), ErrorMessageModel.class);
         Assert.assertEquals(message, errorMessageModel.getMessage());

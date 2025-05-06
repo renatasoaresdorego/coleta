@@ -76,4 +76,35 @@ public class CaminhaoFeatureService {
                 .extract()
                 .response();
     }
+
+    public Response cadastrarCaminhao(Object dadosCaminhao) {
+        return given()
+                .contentType("application/json")
+                .body(dadosCaminhao)
+                .when()
+                .post("/api/v2/coleta/caminhoes/cadastrar-caminhao");
+    }
+
+    public Response atualizarCaminhao(Object dadosCaminhao) {
+        return given()
+                .contentType("application/json")
+                .body(dadosCaminhao)
+                .when()
+                .put("/api/v2/coleta/caminhoes/atualizar-caminhao");
+    }
+
+    public Response excluirCaminhao(String placa) {
+        return given()
+                .contentType("application/json")
+                .pathParam("placa", placa)
+                .when()
+                .delete("/api/v2/coleta/caminhoes/excluir-caminhao");
+    }
+
+    public Response listarCaminhoes() {
+        return given()
+                .contentType("application/json")
+                .when()
+                .get("/api/v2/coleta/caminhoes/listar");
+    }
 }

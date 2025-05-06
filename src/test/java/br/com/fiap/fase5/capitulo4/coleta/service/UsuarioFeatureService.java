@@ -68,7 +68,13 @@ public class UsuarioFeatureService {
     }
 
     public void obterCpf() {
-        cpf = String.valueOf(gson.fromJson(response.jsonPath().prettify(), UsuarioFeatureModel.class).getCpf());
+        if (response == null) {
+            throw new IllegalStateException("A resposta da requisição é nula. Certifique-se de que a requisição foi enviada corretamente.");
+        }
+        if (response.getStatusCode() != 200) {
+            throw new IllegalStateException("A requisição falhou com o status code: " + response.getStatusCode());
+        }
+        cpf = response.jsonPath().getString("cpf");
     }
 
     public void deletarUsuario(String endPoint) {

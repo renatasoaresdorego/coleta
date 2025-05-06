@@ -147,3 +147,18 @@ Funcionalidade: Cadastrar um usuário
     Quando eu enviar a requisição para o endpoint "/api/v2/coleta/usuario/cadastro"
     Então o status code da resposta deverá ser 400
     E o corpo da resposta deverá retornar a mensagem "{senha=A senha é obrigatória.}"
+
+  Cenario: Atualização dos dados do usuário bem sucedida
+    Dado os meus dados pessoais:
+      |atributo |valor             |
+      |cpf      |878.569.480-84    |
+      |telefone |41996675665       |
+      |email    |user66@email.com  |
+    Quando eu enviar a requisição com os dados atualizadas para o endpoint "/api/v2/coleta/usuario/atualizar-dados"
+    Então o status code da resposta deverá ser 202
+
+  Cenario: Busca de usuário pelo CPF
+    Quando eu enviar a requisição para buscar o usuário no endpoint "/api/v2/coleta/usuario/buscar-usuario" com o CPF "878.569.480-84"
+    Então o status code da resposta deverá ser 200
+    E o corpo da resposta deverá conter os dados do usuário
+

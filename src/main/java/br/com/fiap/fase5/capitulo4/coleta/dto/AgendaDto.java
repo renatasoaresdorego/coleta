@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 public record AgendaDto(
         String id,
 
-        @NotNull(message = "A data da próxima coleta é obrigatória.")
         LocalDateTime dataProximaColeta,
 
         LocalDateTime dataUltimaColeta,

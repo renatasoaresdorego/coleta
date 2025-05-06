@@ -8,7 +8,9 @@ import br.com.fiap.fase5.capitulo4.coleta.repository.PontoDeColetaRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -23,14 +25,20 @@ public class PontoDeColetaService {
     private PontoDeColetaRepository repository;
 
     public void cadastrar(PontoDeColetaCadastroDto dto) {
-        try {
-            PontoDeColeta pontoDeColeta = PontoDeColetaMapper.INSTANCE.cadastroDtoToPontoDeColeta(dto);
-            pontoDeColeta.setCapacidadeAtual(definirCapacidadeAtual(dto.capacidadeMaxima()));
-            repository.save(pontoDeColeta);
-            log.info("Ponto de coleta salvo com sucesso.");
-        } catch (DataIntegrityViolationException e) {
-            throw new RuntimeException("Erro ao cadastrar novo ponto de coleta. O ponto de coleta já existe.");
+        // Verifica se o ponto de coleta já existe pelo ID
+        if (repository.existsById(dto.id())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Ponto de coleta já cadastrado com o ID informado.");
         }
+
+
+        PontoDeColeta pontoDeColeta = new PontoDeColeta();
+        pontoDeColeta.setId(dto.id());
+        pontoDeColeta.setEndereco(dto.endereco());
+        pontoDeColeta.setCapacidadeMaxima(dto.capacidadeMaxima());
+        pontoDeColeta.setCapacidadeAtual(dto.capacidadeAtual());
+        pontoDeColeta.setResiduo(dto.residuo().toString());
+
+        repository.save(pontoDeColeta);
     }
 
     public List<PontoDeColetaExibicaoDto> listar() {

@@ -8,11 +8,7 @@ import java.time.LocalDateTime;
 @Data
 public class AgendaFeatureModel {
     @Expose
-    private String id;
-    @Expose
     private LocalDateTime dataProximaColeta;
-    @Expose
-    private LocalDateTime dataUltimaColeta;
     @Expose
     private String rota;
     @Expose

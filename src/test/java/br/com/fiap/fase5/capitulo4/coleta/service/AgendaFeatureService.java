@@ -20,9 +20,7 @@ public class AgendaFeatureService {
 
     public void setAtributosAgenda(String atributo, String valor) {
         switch (atributo) {
-            case "id" -> agendaFeatureModel.setId(valor);
             case "dataProximaColeta" -> agendaFeatureModel.setDataProximaColeta(LocalDateTime.parse(valor));
-            case "dataUltimaColeta" -> agendaFeatureModel.setDataUltimaColeta(LocalDateTime.parse(valor));
             case "rota" -> agendaFeatureModel.setRota(valor);
             case "pontoDeColeta" -> agendaFeatureModel.setPontoDeColeta(valor);
             default -> throw new IllegalStateException("Atributo inválido.");
@@ -54,23 +52,10 @@ public class AgendaFeatureService {
                 .response();
     }
 
-    public void atualizarAgenda(String endPoint) {
+    public void excluirAgenda(String endPoint) {
         String url = localUrl + endPoint;
-        String bodyToSend = gson.toJson(agendaFeatureModel);
         response = given()
                 .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
-                .body(bodyToSend)
-                .when()
-                .put(url)
-                .then()
-                .extract()
-                .response();
-    }
-
-    public void deletarAgenda(String endPoint, String id) {
-        String url = String.format("%s%s/%s", localUrl, endPoint, id);
-        response = given()
                 .accept(ContentType.JSON)
                 .when()
                 .delete(url)
